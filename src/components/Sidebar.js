@@ -3,8 +3,22 @@ import styled from 'styled-components'
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import {sidebarItems} from '../data/SidebarData';
 import AddIcon from '@material-ui/icons/Add';
-import { channelsItems } from '../data/ChannelsData';
-export default function Sidebar() {
+//import { channelsItems } from '../data/ChannelsData';
+import db from '../firebase'
+
+function Sidebar(props) {
+    console.log('ms');
+    console.log(props);
+    const addChannel = ()=>{
+        const promptName = prompt('Enter Channel Name');
+        if(promptName){
+            db.collection('rooms').add({
+                name: promptName
+            })
+        }
+    }
+
+
     return (
         <Container>
             <WorkspaceContainer>
@@ -31,14 +45,14 @@ export default function Sidebar() {
                     <div>
                         Channels
                     </div>
-                    <AddIcon />
+                    <AddIcon onClick={addChannel}/>
                 </NewChannelContainer>
 
                 <ChannelList>
                     {
-                        channelsItems.map(item=>(
+                        props.rooms.map(item=>(
                             <Channel>
-                                # {item.text}
+                                # {item.name}
                             </Channel>
                         ))
                     }
@@ -48,6 +62,8 @@ export default function Sidebar() {
         </Container>
     )
 }
+
+export default Sidebar
 
 const Container = styled.div`
     color: white;
@@ -82,6 +98,8 @@ const NewMessage = styled.div`
 
 const MainChannels = styled.div`
     padding-top: 20px;
+    border-bottom: 1px solid #532753;
+    padding-bottom: 15px
 
 `;
 const MainChannelItem = styled.div`
@@ -92,6 +110,7 @@ const MainChannelItem = styled.div`
     align-items: center;
     padding-left: 19px;
     cursor: pointer;
+    padding-bottom: 2px;
     :hover{
         background:#350D6D;
     }
@@ -109,9 +128,14 @@ const NewChannelContainer = styled.div`
     height: 20px;
     padding-left: 19px;
     padding-right: 12px;
+    border-bottom: 1px solid #532753;
+    padding-bottom: 15px;
+    
 `;
 
-const ChannelList = styled.div``;
+const ChannelList = styled.div`
+    padding-top: 15px
+`;
 const Channel = styled.div`
     height: 28px;
     display: flex;

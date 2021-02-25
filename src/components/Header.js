@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import AccessTimeRoundedIcon from '@material-ui/icons/AccessTimeRounded';
 import HelpOutlineRoundedIcon from '@material-ui/icons/HelpOutlineRounded';
 
+
 function Header() {
     return (
         <Container>
@@ -11,7 +12,6 @@ function Header() {
                 <SearchContainer>
                     <Search>
                         <input type="text" placeholder="Search..." />
-
                     </Search>
                 </SearchContainer>
                 <HelpOutlineRoundedIcon />
